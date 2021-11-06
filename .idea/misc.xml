@@ -3,7 +3,9 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
-        <entry key="..\:/AndroidStudioProjects/Akotlinplan/MVPapp/app/src/main/res/layout/activity_main.xml" value="0.1" />
+        <entry key="..\:/AndroidStudioProjects/Akotlinplan/MVPapp/app/src/main/res/layout/activity_add_item.xml" value="0.16666666666666666" />
+        <entry key="..\:/AndroidStudioProjects/Akotlinplan/MVPapp/app/src/main/res/layout/activity_main.xml" value="0.14666666666666667" />
+        <entry key="..\:/AndroidStudioProjects/Akotlinplan/MVPapp/app/src/main/res/layout/item_card.xml" value="0.16354166666666667" />
         <entry key="..\:/AndroidStudioProjects/Akotlinplan/MVPapp/app/src/main/res/menu/main_menu.xml" value="0.3333333333333333" />
       </map>
     </option>
