@@ -1,29 +1,23 @@
 package com.android.mvpapp.presenter
 
-import com.android.mvpapp.model.ItemModel
+import androidx.annotation.DrawableRes
 
 interface MainContract {
-    interface Views{
-//        fun setupViews()
-        fun setupListeners()
-        fun getItem(): ItemModel
-//        fun addItemToRecyclerViewList(list: ArrayList<ItemModel>)
-//        fun addItemToRecyclerView(item: ItemModel)
 
-    }
-    interface MainViews{
-
-        fun setupViews()
-//        fun setupListeners()
-        fun addItemToRecyclerViewList(list: ArrayList<ItemModel>)
-        fun addItemToRecyclerView(item: ItemModel)
-
+    interface Presenter {
+        fun updateName(name: String)
+        fun updatePrice(price: Int)
+        fun updateQuantity(quantity: Int)
+        fun updateSupplier(supplier: String)
+        fun drawableSelected(drawable: Int)
+        fun isDrawableSelected(): Boolean
+        fun saveItem()
     }
 
-    interface  Actions{
-        fun initScreen()
-        fun addItemToRecyclerView()
-        fun addItemToDatabase()
-        fun fetchAllItemsFromDatabase(  )
+    interface View {
+        fun showAvatarDrawable(@DrawableRes resourceId: Int)
+        fun showItemSaved()
+        fun showItemSavedError()
     }
+
 }
