@@ -1,6 +1,7 @@
 package com.android.mvpapp.presenter
 
 import android.graphics.Bitmap
+import android.graphics.drawable.BitmapDrawable
 import com.android.mvpapp.model.Item
 import com.android.mvpapp.model.ItemGenerator
 import com.android.mvpapp.model.room.RoomRepository
@@ -61,7 +62,8 @@ class ItemPresenter(private val itemGenerator: ItemGenerator = ItemGenerator(),
     }
 
     private fun canSaveItem(): Boolean{
-        return  name.isNotEmpty() && price!=0 && quantity!=0 && supplier.isNotEmpty() 
+        return  name.isNotEmpty() && price!=0 && quantity!=0 && supplier.isNotEmpty() && !(image.sameAs(Bitmap.createBitmap(image.getWidth(), image.getHeight(), image.getConfig())))
     }
+
 
 }

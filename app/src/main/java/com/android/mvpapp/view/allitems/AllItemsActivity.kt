@@ -1,5 +1,6 @@
 package com.android.mvpapp.view.allitems
 
+import android.content.DialogInterface
 import android.content.Intent
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
@@ -7,6 +8,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import android.view.Menu
 import android.view.MenuItem
 import android.widget.Toast
+import androidx.appcompat.app.AlertDialog
 import androidx.lifecycle.Observer
 import com.android.android.inventory.R
 import com.android.mvpapp.presenter.AllItemsPresenter
@@ -41,10 +43,21 @@ class AllItemsActivity : AppCompatActivity(), AllItemsContract.View {
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        var alertDialog: AlertDialog? = null
         return when (item.itemId) {
             R.id.action_clear_all -> {
-                presenter.clearAllItems()
+                val alertDialogBuilder = AlertDialog.Builder(this)
+                alertDialogBuilder.setTitle("Delete All items")
+                alertDialogBuilder.setMessage("Are you sure you want to delete all items?")
+                alertDialogBuilder.setPositiveButton("Yes") { _: DialogInterface, _: Int ->
+                    presenter.clearAllItems()
+                }
+                alertDialogBuilder.setNegativeButton("Cancel", { dialogInterface: DialogInterface, i: Int -> })
+
+                alertDialog = alertDialogBuilder.create()
+                alertDialog?.show()
                 true
+
             }
             else -> super.onOptionsItemSelected(item)
         }

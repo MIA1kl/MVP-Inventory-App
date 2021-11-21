@@ -4,9 +4,8 @@ import android.os.AsyncTask
 import androidx.lifecycle.LiveData
 import com.android.mvpapp.app.InventoryApplication
 import com.android.mvpapp.model.Item
-import com.android.mvpapp.model.ItemRepository
 
-class RoomRepository : ItemRepository {
+class RoomRepository {
     private val itemDao: ItemDao = InventoryApplication.database.itemDao()
 
     private val allItems: LiveData<List<Item>>
@@ -29,13 +28,13 @@ class RoomRepository : ItemRepository {
         }
     }
 
-    override fun saveItem(item: Item) {
+    fun saveItem(item: Item) {
         InsertAsyncTask(itemDao).execute(item)
     }
 
-    override fun getAllItems() = allItems
+    fun getAllItems() = allItems
 
-    override fun clearAllItems() {
+    fun clearAllItems() {
         val itemArray = allItems.value?.toTypedArray()
         itemArray?.let {
             DeleteAsyncTask(itemDao).execute(*it)

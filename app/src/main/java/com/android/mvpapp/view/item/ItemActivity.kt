@@ -76,10 +76,7 @@ class ItemActivity : AppCompatActivity(), MainContract.View {
         avatarImageView.setOnClickListener {
             var i = Intent(MediaStore.ACTION_IMAGE_CAPTURE)
             startActivityForResult(i, 123)
-//            val bottomDialogFragment = AvatarBottomDialogFragment.newInstance()
-//            bottomDialogFragment.show(supportFragmentManager, "AvatarBottomDialogFragment")
         }
-
         saveButton.setOnClickListener {
             presenter.saveItem()
         }
@@ -95,10 +92,6 @@ class ItemActivity : AppCompatActivity(), MainContract.View {
         }
     }
 
-//    override fun avatarClicked(avatar: Avatar) {
-//        presenter.drawableSelected(avatar.drawable)
-//        hideTapLabel()
-//    }
 
     private fun hideTapLabel() {
         tapLabel.visibility = View.INVISIBLE
