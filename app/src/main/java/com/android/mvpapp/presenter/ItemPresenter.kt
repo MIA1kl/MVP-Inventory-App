@@ -1,8 +1,10 @@
 package com.android.mvpapp.presenter
 
+import android.graphics.Bitmap
 import com.android.mvpapp.model.Item
 import com.android.mvpapp.model.ItemGenerator
 import com.android.mvpapp.model.room.RoomRepository
+import com.android.mvpapp.view.item.MainContract
 
 class ItemPresenter(private val itemGenerator: ItemGenerator = ItemGenerator(),
                     private val repository: RoomRepository = RoomRepository()) :
@@ -14,7 +16,7 @@ class ItemPresenter(private val itemGenerator: ItemGenerator = ItemGenerator(),
     private var price = 0
     private var quantity = 0
     private var supplier = ""
-    private var drawable = 0
+    private var image  = Bitmap.createBitmap(100, 100, Bitmap.Config.ARGB_8888)
 
     override fun updateName(name: String) {
         this.name = name
@@ -33,14 +35,16 @@ class ItemPresenter(private val itemGenerator: ItemGenerator = ItemGenerator(),
         this.supplier =  supplier
         updateItem()
     }
-    override fun drawableSelected(drawable: Int) {
-        this.drawable = drawable
-        getView()?.showAvatarDrawable(drawable)
+
+
+    override fun imageSelected(bitmap: Bitmap) {
+        this.image = bitmap
+        getView()?.showAvatarBitmap(bitmap)
         updateItem()
     }
 
     override fun isDrawableSelected(): Boolean {
-        return drawable != 0
+        return image != Bitmap.createBitmap(100, 100, Bitmap.Config.ARGB_8888)
     }
 
     override fun saveItem() {
@@ -53,11 +57,11 @@ class ItemPresenter(private val itemGenerator: ItemGenerator = ItemGenerator(),
     }
 
     private fun updateItem() {
-        item = itemGenerator.generateItem( name,price,quantity,supplier, drawable)
+        item = itemGenerator.generateItem( name,price,quantity,supplier, image)
     }
 
     private fun canSaveItem(): Boolean{
-        return  name.isNotEmpty() && price!=0 && quantity!=0 && supplier.isNotEmpty() && drawable!=0
+        return  name.isNotEmpty() && price!=0 && quantity!=0 && supplier.isNotEmpty() 
     }
 
 }

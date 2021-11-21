@@ -1,22 +1,21 @@
 package com.android.mvpapp.view.item
+import android.content.Intent
+import android.graphics.Bitmap
 import android.os.Bundle
+import android.provider.MediaStore
 import android.text.Editable
 import android.text.TextWatcher
 import android.view.View
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import com.android.android.inventory.R
-import com.android.mvpapp.model.Avatar
 import com.android.mvpapp.presenter.ItemPresenter
-import com.android.mvpapp.presenter.MainContract
-import com.android.mvpapp.view.avatars.AvatarAdapter
-import com.android.mvpapp.view.avatars.AvatarBottomDialogFragment
 
 
 import kotlinx.android.synthetic.main.activity_item.*
 
 
-class ItemActivity : AppCompatActivity(), AvatarAdapter.AvatarListener, MainContract.View {
+class ItemActivity : AppCompatActivity(), MainContract.View {
 
     private val presenter = ItemPresenter()
 
@@ -75,8 +74,10 @@ class ItemActivity : AppCompatActivity(), AvatarAdapter.AvatarListener, MainCont
 
     private fun configureClickListeners() {
         avatarImageView.setOnClickListener {
-            val bottomDialogFragment = AvatarBottomDialogFragment.newInstance()
-            bottomDialogFragment.show(supportFragmentManager, "AvatarBottomDialogFragment")
+            var i = Intent(MediaStore.ACTION_IMAGE_CAPTURE)
+            startActivityForResult(i, 123)
+//            val bottomDialogFragment = AvatarBottomDialogFragment.newInstance()
+//            bottomDialogFragment.show(supportFragmentManager, "AvatarBottomDialogFragment")
         }
 
         saveButton.setOnClickListener {
@@ -84,18 +85,28 @@ class ItemActivity : AppCompatActivity(), AvatarAdapter.AvatarListener, MainCont
         }
     }
 
-    override fun avatarClicked(avatar: Avatar) {
-        presenter.drawableSelected(avatar.drawable)
-        hideTapLabel()
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        super.onActivityResult(requestCode, resultCode, data)
+        if(requestCode==123){
+            var bmp = data?.extras?.get("data") as Bitmap
+            avatarImageView.setImageBitmap(bmp)
+            presenter.imageSelected(bmp)
+            hideTapLabel()
+        }
     }
+
+//    override fun avatarClicked(avatar: Avatar) {
+//        presenter.drawableSelected(avatar.drawable)
+//        hideTapLabel()
+//    }
 
     private fun hideTapLabel() {
         tapLabel.visibility = View.INVISIBLE
     }
 
 
-    override fun showAvatarDrawable(resourceId: Int) {
-        avatarImageView.setImageResource(resourceId)
+    override fun showAvatarBitmap(resourceId: Bitmap) {
+        avatarImageView.setImageBitmap(resourceId)
     }
 
     override fun showItemSaved() {

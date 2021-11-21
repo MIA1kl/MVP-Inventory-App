@@ -9,7 +9,6 @@ import android.view.MenuItem
 import android.widget.Toast
 import androidx.lifecycle.Observer
 import com.android.android.inventory.R
-import com.android.mvpapp.presenter.AllItemsContract
 import com.android.mvpapp.presenter.AllItemsPresenter
 import com.android.mvpapp.view.item.ItemActivity
 import kotlinx.android.synthetic.main.activity_all_items.*
@@ -37,7 +36,6 @@ class AllItemsActivity : AppCompatActivity(), AllItemsContract.View {
     }
 
     override fun onCreateOptionsMenu(menu: Menu): Boolean {
-        // Inflate the menu; this adds items to the action bar if it is present.
         menuInflater.inflate(R.menu.menu_main, menu)
         return true
     }

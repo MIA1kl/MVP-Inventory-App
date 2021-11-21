@@ -14,13 +14,13 @@
             android:id="@+id/tapLabel"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/tap_to_set_avatar"
+            android:text="@string/tap_to_set_photo"
             android:textSize="24sp"
             app:layout_constraintBottom_toBottomOf="@+id/avatarImageView"
             app:layout_constraintEnd_toEndOf="@+id/avatarImageView"
             app:layout_constraintStart_toStartOf="@+id/avatarImageView"
             app:layout_constraintTop_toTopOf="@+id/avatarImageView"
-            tools:text="@string/tap_to_set_avatar" />
+            tools:text="@string/tap_to_set_photo" />
 
         <ImageView
             android:id="@+id/avatarImageView"

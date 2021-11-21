@@ -1,6 +1,7 @@
-package com.android.mvpapp.presenter
+package com.android.mvpapp.view.item
 
-import androidx.annotation.DrawableRes
+import android.graphics.Bitmap
+
 
 interface MainContract {
 
@@ -9,13 +10,13 @@ interface MainContract {
         fun updatePrice(price: Int)
         fun updateQuantity(quantity: Int)
         fun updateSupplier(supplier: String)
-        fun drawableSelected(drawable: Int)
+        fun imageSelected(drawable: Bitmap)
         fun isDrawableSelected(): Boolean
         fun saveItem()
     }
 
     interface View {
-        fun showAvatarDrawable(@DrawableRes resourceId: Int)
+        fun showAvatarBitmap(resourceId: Bitmap)
         fun showItemSaved()
         fun showItemSavedError()
     }

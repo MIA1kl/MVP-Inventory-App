@@ -1,4 +1,4 @@
-package com.android.mvpapp.presenter
+package com.android.mvpapp.view.allitems
 
 import androidx.lifecycle.LiveData
 import com.android.mvpapp.model.Item

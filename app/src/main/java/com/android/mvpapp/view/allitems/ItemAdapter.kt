@@ -33,7 +33,7 @@ class ItemAdapter(private val items: MutableList<Item>)
 
         fun bind(item: Item) {
             this.item = item
-            itemView.avatarListItem.setImageResource(item.drawable)
+            itemView.avatarListItem.setImageBitmap(item.image)
             itemView.name.text = item.name
             itemView.price.text = item.price.toString() + " $"
             itemView.quantity.text = item.quantity.toString() + " pcs."
