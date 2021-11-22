@@ -7,6 +7,7 @@ import androidx.room.PrimaryKey
 
 @Entity(tableName = "inventory_table")
 data class Item(
+
     @PrimaryKey @NonNull val name: String = "",
     @NonNull val price: Int = 0,
     @NonNull val quantity: Int = 0,

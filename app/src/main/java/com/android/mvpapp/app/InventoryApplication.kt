@@ -12,6 +12,6 @@ class InventoryApplication : Application() {
 
     override fun onCreate() {
         super.onCreate()
-        database = Room.databaseBuilder(this, ItemDatabase::class.java, "item_database").build()
+        database = Room.databaseBuilder(this, ItemDatabase::class.java, "item_database").allowMainThreadQueries().build()
     }
 }

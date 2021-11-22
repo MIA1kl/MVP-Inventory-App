@@ -13,7 +13,7 @@
     <string name="save">SAVE</string>
     <string name="error_saving_item">Please complete all fields.</string>
     <string name="item_saved">Item saved!</string>
-    <string name="clear_all_creatures">Delete all Items</string>
+    <string name="clear">Delete</string>
     <string name="add_item">Add Item</string>
     <string name="item_empty">Items deleted</string>
 </resources>

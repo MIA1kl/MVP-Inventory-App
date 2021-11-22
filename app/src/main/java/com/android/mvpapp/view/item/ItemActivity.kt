@@ -1,18 +1,26 @@
 package com.android.mvpapp.view.item
+import android.content.DialogInterface
 import android.content.Intent
 import android.graphics.Bitmap
+import android.graphics.BitmapFactory
 import android.os.Bundle
 import android.provider.MediaStore
 import android.text.Editable
 import android.text.TextWatcher
+import android.view.Menu
+import android.view.MenuItem
 import android.view.View
 import android.widget.Toast
+import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import com.android.android.inventory.R
+import com.android.mvpapp.model.Item
 import com.android.mvpapp.presenter.ItemPresenter
+import kotlinx.android.synthetic.main.activity_all_items.*
 
 
 import kotlinx.android.synthetic.main.activity_item.*
+import kotlinx.android.synthetic.main.list_item_item.*
 
 
 class ItemActivity : AppCompatActivity(), MainContract.View {
@@ -22,21 +30,68 @@ class ItemActivity : AppCompatActivity(), MainContract.View {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_item)
+        supportActionBar?.setDisplayHomeAsUpEnabled(true)
+        supportActionBar?.title="Inventory store"
+        checkIntent()
         presenter.setView(this)
         configureUI()
         configureEditText()
         configureClickListeners()
+
+    }
+
+    override fun onCreateOptionsMenu(menu: Menu): Boolean {
+        menuInflater.inflate(R.menu.menu_main, menu)
+        return true
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        var alertDialog: AlertDialog? = null
+        return when (item.itemId) {
+            R.id.action_clear_all -> {
+                val alertDialogBuilder = AlertDialog.Builder(this)
+                alertDialogBuilder.setTitle("Delete this item")
+                alertDialogBuilder.setMessage("Are you sure you want to delete this item?")
+                alertDialogBuilder.setPositiveButton("Yes") { _: DialogInterface, _: Int ->
+                    presenter.deleteItem(name.text.toString())
+                    val intent = Intent(this, ItemActivity::class.java)
+                    startActivity(intent)
+                }
+                alertDialogBuilder.setNegativeButton("Cancel", { dialogInterface: DialogInterface, i: Int -> })
+
+                alertDialog = alertDialogBuilder.create()
+                alertDialog?.show()
+                true
+
+            }
+            else -> super.onOptionsItemSelected(item)
+        }
+    }
+
+    override fun checkIntent() {
+        if (!intent.getStringExtra("name").isNullOrEmpty()){
+            val n  = intent.getStringExtra("name")
+            val price1 = intent.getStringExtra("price")
+            val bitmap = intent.getByteArrayExtra("image")
+            val quantity1 = intent.getStringExtra("quantity")
+            val supplier1 = intent.getStringExtra("supplier")
+
+            avatarImageView.setImageBitmap(BitmapFactory.decodeByteArray(bitmap, 0, bitmap!!.size))
+            nameEditText.setText(n.toString())
+            priceEditText.setText(""+price1)
+            quantityEditText.setText(""+quantity1)
+            supplierEditText.setText(supplier1.toString())
+//            toolbar.subtitle = "Editor Mode"
+        }
     }
 
     private fun configureUI() {
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
         title = getString(R.string.add_item)
-        if (presenter.isDrawableSelected()) {
+        if (presenter.isImageSelected()) {
             hideTapLabel()
         }
     }
-
-
 
 
     private fun configureEditText() {
@@ -78,7 +133,15 @@ class ItemActivity : AppCompatActivity(), MainContract.View {
             startActivityForResult(i, 123)
         }
         saveButton.setOnClickListener {
-            presenter.saveItem()
+            if (!intent.getStringExtra("name").isNullOrEmpty()){
+                val item = Item(nameEditText.text.toString(),
+                    priceEditText.text.toString().toInt(), quantityEditText.text.toString().toInt(),supplierEditText.text.toString() )
+                presenter.updateThisItem(item)
+            }
+            else{
+                presenter.saveItem()
+            }
+
         }
     }
 
@@ -110,4 +173,6 @@ class ItemActivity : AppCompatActivity(), MainContract.View {
     override fun showItemSavedError() {
         Toast.makeText(this,getString(R.string.error_saving_item),Toast.LENGTH_SHORT).show()
     }
+
+
 }

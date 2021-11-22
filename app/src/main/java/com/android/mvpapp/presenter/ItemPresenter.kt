@@ -1,11 +1,11 @@
 package com.android.mvpapp.presenter
 
 import android.graphics.Bitmap
-import android.graphics.drawable.BitmapDrawable
 import com.android.mvpapp.model.Item
 import com.android.mvpapp.model.ItemGenerator
 import com.android.mvpapp.model.room.RoomRepository
 import com.android.mvpapp.view.item.MainContract
+
 
 class ItemPresenter(private val itemGenerator: ItemGenerator = ItemGenerator(),
                     private val repository: RoomRepository = RoomRepository()) :
@@ -44,8 +44,8 @@ class ItemPresenter(private val itemGenerator: ItemGenerator = ItemGenerator(),
         updateItem()
     }
 
-    override fun isDrawableSelected(): Boolean {
-        return image != Bitmap.createBitmap(100, 100, Bitmap.Config.ARGB_8888)
+    override fun isImageSelected(): Boolean {
+        return !(image.sameAs(Bitmap.createBitmap(image.getWidth(), image.getHeight(), image.getConfig())))
     }
 
     override fun saveItem() {
@@ -55,6 +55,21 @@ class ItemPresenter(private val itemGenerator: ItemGenerator = ItemGenerator(),
         } else {
             getView()?.showItemSavedError()
         }
+    }
+
+    override fun updateThisItem(item: Item) {
+        if (canSaveItem()) {
+            repository.updateThisItem(item)
+            getView()?.showItemSaved()
+        } else {
+            getView()?.showItemSavedError()
+        }
+    }
+
+    override fun deleteItem(name: String) {
+        repository.deleteItem(name)
+//        getView()?.showItemCleared()
+
     }
 
     private fun updateItem() {

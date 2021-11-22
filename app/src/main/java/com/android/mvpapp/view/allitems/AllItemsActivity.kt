@@ -12,7 +12,9 @@ import androidx.appcompat.app.AlertDialog
 import androidx.lifecycle.Observer
 import com.android.android.inventory.R
 import com.android.mvpapp.presenter.AllItemsPresenter
+import com.android.mvpapp.view.adapter.ItemAdapter
 import com.android.mvpapp.view.item.ItemActivity
+import com.google.android.material.floatingactionbutton.FloatingActionButton
 import kotlinx.android.synthetic.main.activity_all_items.*
 import kotlinx.android.synthetic.main.content_all_items.*
 
@@ -32,7 +34,7 @@ class AllItemsActivity : AppCompatActivity(), AllItemsContract.View {
                 adapter.updateItems(itemList)
             }
         })
-        fab.setOnClickListener {
+        findViewById<FloatingActionButton>(R.id.fab).setOnClickListener {
             startActivity(Intent(this, ItemActivity::class.java))
         }
     }

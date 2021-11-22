@@ -31,6 +31,9 @@ class RoomRepository {
     fun saveItem(item: Item) {
         InsertAsyncTask(itemDao).execute(item)
     }
+    fun updateThisItem(item:Item){
+        itemDao.updateItem(item)
+    }
 
     fun getAllItems() = allItems
 
@@ -39,5 +42,9 @@ class RoomRepository {
         itemArray?.let {
             DeleteAsyncTask(itemDao).execute(*it)
         }
+    }
+
+    fun deleteItem(name:String){
+        itemDao.deleteItem(name)
     }
 }
