@@ -51,7 +51,6 @@ class ItemAdapter(private val items: MutableList<Item>)
                 val stream = ByteArrayOutputStream()
                 item.image.compress(Bitmap.CompressFormat.PNG, 100, stream)
                 val byteArray = stream.toByteArray()
-                itemView.avatarListItem.setImageBitmap(item.image)
 
                 val intent = Intent(it.context, ItemActivity::class.java)
                 intent.putExtra("name", item.name)

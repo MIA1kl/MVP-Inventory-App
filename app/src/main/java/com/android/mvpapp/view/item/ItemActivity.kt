@@ -3,6 +3,7 @@ import android.content.DialogInterface
 import android.content.Intent
 import android.graphics.Bitmap
 import android.graphics.BitmapFactory
+import android.graphics.drawable.BitmapDrawable
 import android.os.Bundle
 import android.provider.MediaStore
 import android.text.Editable
@@ -13,6 +14,7 @@ import android.view.View
 import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
+//import androidx.core.graphics.drawable.toBitmap
 import com.android.android.inventory.R
 import com.android.mvpapp.model.Item
 import com.android.mvpapp.presenter.ItemPresenter
@@ -138,8 +140,9 @@ class ItemActivity : AppCompatActivity(), MainContract.View {
             if (!intent.getStringExtra("name").isNullOrEmpty()){
                 configureEditText()
                 configureUI()
+                avatarImageView.setDrawingCacheEnabled(true)
                 val item = Item(nameEditText.text.toString(),
-                    priceEditText.text.toString().toInt(), quantityEditText.text.toString().toInt(),supplierEditText.text.toString() )
+                    priceEditText.text.toString().toInt(), quantityEditText.text.toString().toInt(),supplierEditText.text.toString(), avatarImageView.getDrawingCache())
 
                 presenter.updateThisItem(item)
             }
