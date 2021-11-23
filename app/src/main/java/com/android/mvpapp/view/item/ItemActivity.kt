@@ -71,6 +71,7 @@ class ItemActivity : AppCompatActivity(), MainContract.View {
 
     override fun checkIntent() {
         if (!intent.getStringExtra("name").isNullOrEmpty()){
+            hideTapLabel()
             val n  = intent.getStringExtra("name")
             val price1 = intent.getStringExtra("price")
             val bitmap = intent.getByteArrayExtra("image")

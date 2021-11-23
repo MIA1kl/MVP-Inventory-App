@@ -52,9 +52,12 @@ class ItemAdapter(private val items: MutableList<Item>)
             itemView.supplier.text = "By: "+item.supplier
 
             itemView.setOnClickListener {
+
                 val stream = ByteArrayOutputStream()
-                itemView.avatarListItem.setImageBitmap(item.image)
+                item.image.compress(Bitmap.CompressFormat.PNG, 100, stream)
                 val byteArray = stream.toByteArray()
+                itemView.avatarListItem.setImageBitmap(item.image)
+
                 val intent = Intent(it.context, ItemActivity::class.java)
                 intent.putExtra("name", item.name)
                 intent.putExtra("price", item.price.toString())
