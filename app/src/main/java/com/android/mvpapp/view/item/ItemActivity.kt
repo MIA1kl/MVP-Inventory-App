@@ -34,7 +34,7 @@ class ItemActivity : AppCompatActivity(), MainContract.View {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_item)
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
-        supportActionBar?.title="Inventory store"
+        supportActionBar?.title="Add Item"
         presenter.setView(this)
         checkIntent()
         configureUI()
@@ -85,7 +85,7 @@ class ItemActivity : AppCompatActivity(), MainContract.View {
             priceEditText.setText(""+price1)
             quantityEditText.setText(""+quantity1)
             supplierEditText.setText(supplier1.toString())
-//            toolbar.subtitle = "Editor Mode"
+            supportActionBar?.title="Edit Item"
         }
     }
 
