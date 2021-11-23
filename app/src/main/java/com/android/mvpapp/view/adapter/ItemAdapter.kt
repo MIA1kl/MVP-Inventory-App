@@ -1,11 +1,13 @@
 package com.android.mvpapp.view.adapter
 import android.content.Context
 import android.content.Intent
+import android.graphics.Bitmap
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.android.android.inventory.R
+import com.android.mvpapp.inflate
 import com.android.mvpapp.model.Item
 import com.android.mvpapp.view.item.ItemActivity
 

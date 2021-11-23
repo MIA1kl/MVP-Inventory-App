@@ -60,6 +60,7 @@ class ItemPresenter(private val itemGenerator: ItemGenerator = ItemGenerator(),
     override fun updateThisItem(item: Item) {
         if (canSaveItem()) {
             repository.updateThisItem(item)
+            updateItem()
             getView()?.showItemSaved()
         } else {
             getView()?.showItemSavedError()

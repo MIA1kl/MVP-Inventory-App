@@ -16,6 +16,7 @@ import androidx.appcompat.app.AppCompatActivity
 import com.android.android.inventory.R
 import com.android.mvpapp.model.Item
 import com.android.mvpapp.presenter.ItemPresenter
+import com.android.mvpapp.view.allitems.AllItemsActivity
 import kotlinx.android.synthetic.main.activity_all_items.*
 
 
@@ -32,8 +33,8 @@ class ItemActivity : AppCompatActivity(), MainContract.View {
         setContentView(R.layout.activity_item)
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
         supportActionBar?.title="Inventory store"
-        checkIntent()
         presenter.setView(this)
+        checkIntent()
         configureUI()
         configureEditText()
         configureClickListeners()
@@ -53,8 +54,8 @@ class ItemActivity : AppCompatActivity(), MainContract.View {
                 alertDialogBuilder.setTitle("Delete this item")
                 alertDialogBuilder.setMessage("Are you sure you want to delete this item?")
                 alertDialogBuilder.setPositiveButton("Yes") { _: DialogInterface, _: Int ->
-                    presenter.deleteItem(name.text.toString())
-                    val intent = Intent(this, ItemActivity::class.java)
+                    presenter.deleteItem(nameEditText.text.toString())
+                    val intent = Intent(this, AllItemsActivity::class.java)
                     startActivity(intent)
                 }
                 alertDialogBuilder.setNegativeButton("Cancel", { dialogInterface: DialogInterface, i: Int -> })
@@ -134,8 +135,11 @@ class ItemActivity : AppCompatActivity(), MainContract.View {
         }
         saveButton.setOnClickListener {
             if (!intent.getStringExtra("name").isNullOrEmpty()){
+                configureEditText()
+                configureUI()
                 val item = Item(nameEditText.text.toString(),
                     priceEditText.text.toString().toInt(), quantityEditText.text.toString().toInt(),supplierEditText.text.toString() )
+
                 presenter.updateThisItem(item)
             }
             else{
@@ -147,11 +151,13 @@ class ItemActivity : AppCompatActivity(), MainContract.View {
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
-        if(requestCode==123){
-            var bmp = data?.extras?.get("data") as Bitmap
-            avatarImageView.setImageBitmap(bmp)
-            presenter.imageSelected(bmp)
-            hideTapLabel()
+        if(resultCode != RESULT_CANCELED){
+            if(requestCode==123){
+                var bmp = data?.extras?.get("data") as Bitmap
+                avatarImageView.setImageBitmap(bmp)
+                presenter.imageSelected(bmp)
+                hideTapLabel()
+            }
         }
     }
 
