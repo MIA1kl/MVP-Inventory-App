@@ -19,11 +19,7 @@ class ItemAdapter(private val items: MutableList<Item>)
     lateinit var context: Context
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
-        val v = LayoutInflater.from(parent.context).inflate(R.layout.list_item_item, parent, false)
-        val vh = ViewHolder(v)
-        context = parent.context
-        return vh
-//        return ViewHolder(parent.inflate(R.layout.list_item_item))
+        return ViewHolder(parent.inflate(R.layout.list_item_item))
     }
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
@@ -52,7 +48,6 @@ class ItemAdapter(private val items: MutableList<Item>)
             itemView.supplier.text = "By: "+item.supplier
 
             itemView.setOnClickListener {
-
                 val stream = ByteArrayOutputStream()
                 item.image.compress(Bitmap.CompressFormat.PNG, 100, stream)
                 val byteArray = stream.toByteArray()

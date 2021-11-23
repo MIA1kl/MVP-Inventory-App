@@ -58,19 +58,17 @@ class ItemPresenter(private val itemGenerator: ItemGenerator = ItemGenerator(),
     }
 
     override fun updateThisItem(item: Item) {
-        if (canSaveItem()) {
+//        if (canSaveItem()) {
             repository.updateThisItem(item)
             updateItem()
             getView()?.showItemSaved()
-        } else {
-            getView()?.showItemSavedError()
-        }
+//        } else {
+//            getView()?.showItemSavedError()
+//        }
     }
 
     override fun deleteItem(name: String) {
         repository.deleteItem(name)
-//        getView()?.showItemCleared()
-
     }
 
     private fun updateItem() {
